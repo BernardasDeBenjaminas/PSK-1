@@ -2,9 +2,35 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 >
 <h:head/>
 <h:body>
-    <h2>Hello World ay! #{authorController.author.name}</h2>
+
+    <h2>Current cars!</h2>
+    <ul>
+        <ui:repeat value="#{carController.allCars}" var="car">
+            <li>#{car.manufacturer} #{car.model}</li>
+        </ui:repeat>
+    </ul>
+
+    <h2>Add new car!</h2>
+    <h:form>
+        <!-- Manufacturer -->
+        <label>
+            Manufacturer:
+            <h:inputText value="#{carController.car.manufacturer}" />
+        </label>
+        <br />
+        <!-- Model -->
+        <label>
+            Model:
+            <h:inputText value="#{carController.car.model}" />
+        </label>
+        <br />
+        <!-- [Button] Submit -->
+        <h:commandButton value="Create" action="#{carController.saveChanges}" />
+    </h:form>
+
 </h:body>
 </html>
