@@ -1,29 +1,39 @@
 package lt.vu.mif.Entities;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.persistence.*;
-import java.util.List;
+import java.io.Serializable;
 
 @Entity
 @Getter
 @Setter
+@EqualsAndHashCode
 @Table(name = "DRIVERS")
-public class Driver {
+@NamedQueries({
+    @NamedQuery(name = "Drivers.getAll", query = "SELECT d FROM Driver AS d")
+})
+public class Driver implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 //    private List<Integer> carIds;
 
-    @Column(name = "NAME")    private String name;
-    @Column(name = "SURNAME") private String surname;
+    @Column(name = "NAME")
+    private String name;
+
+    @Column(name = "SURNAME")
+    private String surname;
 
     public Driver() {}
     public Driver(String name, String surname) {
-        //        this.carIds = carIds;
         this.name = name;
         this.surname = surname;
+    }
+
+    public String toString() {
+        return this.name + " " + this.surname;
     }
 }

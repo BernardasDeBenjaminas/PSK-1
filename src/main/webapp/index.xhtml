@@ -2,32 +2,71 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core"
 >
 <h:head/>
 <h:body>
 
+    <h2>Current drivers!</h2>
+    <ul>
+        <ui:repeat value="#{driverController.allDrivers}" var="driver">
+            <li>#{driver.name} #{driver.surname}</li>
+        </ui:repeat>
+    </ul>
+
+    <h2>Add new driver!</h2>
+    <h:form>
+        <!-- Name -->
+        <label>Name:</label>
+        <br />
+        <h:inputText value="#{driverController.driver.name}" />
+        <br />
+
+        <!-- Surname -->
+        <label>Surname:</label>
+        <br />
+        <h:inputText value="#{driverController.driver.surname}" />
+        <br />
+
+        <!-- [Button] Submit -->
+        <h:commandButton value="Create" action="#{driverController.saveChanges}" />
+    </h:form>
+
+
+
     <h2>Current cars!</h2>
     <ul>
         <ui:repeat value="#{carController.allCars}" var="car">
-            <li>#{car.manufacturer} #{car.model}</li>
+            <li>#{car.manufacturer} #{car.model} driven by: #{car.driver.name} #{car.driver.surname}</li>
         </ui:repeat>
     </ul>
 
     <h2>Add new car!</h2>
     <h:form>
         <!-- Manufacturer -->
-        <label>
-            Manufacturer:
-            <h:inputText value="#{carController.car.manufacturer}" />
-        </label>
+        <label>Manufacturer:</label>
         <br />
+        <h:inputText value="#{carController.car.manufacturer}" />
+        <br />
+
         <!-- Model -->
-        <label>
-            Model:
-            <h:inputText value="#{carController.car.model}" />
-        </label>
+        <label>Model:</label>
         <br />
+        <h:inputText value="#{carController.car.model}" />
+        <br />
+
+        <!-- Driver -->
+        <label>Driver:</label>
+        <br />
+        <h:selectOneMenu value="#{carController.car.driver}" converter="#{driverConverter}">
+            <f:selectItems
+                value="#{driverController.allDrivers}"
+                var="driver"
+                itemLabel="#{driver.name} #{driver.surname}"
+                itemValue="#{driver}" />
+        </h:selectOneMenu>
+        <br />
+
         <!-- [Button] Submit -->
         <h:commandButton value="Create" action="#{carController.saveChanges}" />
     </h:form>

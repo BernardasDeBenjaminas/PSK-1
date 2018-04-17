@@ -1,5 +1,6 @@
 package lt.vu.mif.Entities;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
@@ -7,6 +8,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@EqualsAndHashCode
 @Table(name = "SHOPS")
 public class Shop {
 
