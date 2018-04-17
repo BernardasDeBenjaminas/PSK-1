@@ -86,7 +86,7 @@
                             <!-- Cars -->
                             <h:selectOneMenu value="#{shopController.car.id}">
                                 <f:selectItems
-                                        value="#{carAndDriverController.carsNotInRepair}"
+                                        value="#{carController.carsNotInRepair}"
                                         var="car"
                                         itemLabel="#{car.manufacturer} #{car.model}"
                                         itemValue="#{car.id}" />
@@ -111,7 +111,7 @@
 
                 <h4>All drivers</h4>
                 <ul>
-                    <ui:repeat value="#{carAndDriverController.allDrivers}" var="driver">
+                    <ui:repeat value="#{driverController.allDrivers}" var="driver">
                         <li>
                             #{driver.name} #{driver.surname} <b>drives:</b>
                             <ol>
@@ -131,7 +131,7 @@
                         <div class="cell small-8">
                             <label>
                                 Name:
-                                <h:inputText value="#{carAndDriverController.driver.name}" />
+                                <h:inputText value="#{driverController.driver.name}" />
                             </label>
                         </div>
                     </div>
@@ -141,7 +141,7 @@
                         <div class="cell small-8">
                             <label>
                                 Surname:
-                                <h:inputText value="#{carAndDriverController.driver.surname}" />
+                                <h:inputText value="#{driverController.driver.surname}" />
                             </label>
                         </div>
                     </div>
@@ -150,7 +150,7 @@
                     <h:commandButton
                         class="button primary"
                         value="Add driver"
-                        action="#{carAndDriverController.addDriver}" />
+                        action="#{driverController.addDriver}" />
                 </h:form>
             </div>
 
@@ -159,14 +159,14 @@
 
                 <h4>Without drivers</h4>
                 <ul>
-                    <ui:repeat value="#{carAndDriverController.carsWithoutDrivers}" var="car">
+                    <ui:repeat value="#{carController.carsWithoutDrivers}" var="car">
                         <li>#{car.manufacturer} #{car.model}</li>
                     </ui:repeat>
                 </ul>
 
                 <h4>With drivers</h4>
                 <ul>
-                    <ui:repeat value="#{carAndDriverController.carsWithDrivers}" var="car">
+                    <ui:repeat value="#{carController.carsWithDrivers}" var="car">
                         <li>
                             #{car.manufacturer} #{car.model}
                             <b>driven by:</b>
@@ -182,7 +182,7 @@
                         <div class="cell small-8">
                             <label>
                                 Manufacturer:
-                                <h:inputText value="#{carAndDriverController.car.manufacturer}" />
+                                <h:inputText value="#{carController.car.manufacturer}" />
                             </label>
                         </div>
                     </div>
@@ -192,7 +192,7 @@
                         <div class="cell small-8">
                             <label>
                                 Model:
-                                <h:inputText value="#{carAndDriverController.car.model}" />
+                                <h:inputText value="#{carController.car.model}" />
                             </label>
                         </div>
                     </div>
@@ -202,10 +202,10 @@
                         <div class="cell small-8">
                             <label>
                                 Driver:
-                                <h:selectOneMenu value="#{carAndDriverController.driver.id}">
+                                <h:selectOneMenu value="#{carController.driver.id}">
                                     <f:selectItem itemValue="#{null}" itemLabel="No driver" />
                                     <f:selectItems
-                                            value="#{carAndDriverController.allDrivers}"
+                                            value="#{driverController.allDrivers}"
                                             var="driver"
                                             itemLabel="#{driver.name} #{driver.surname}"
                                             itemValue="#{driver.id}" />
@@ -219,7 +219,7 @@
                     <h:commandButton
                             class="button primary"
                             value="Add car"
-                            action="#{carAndDriverController.addCar}" />
+                            action="#{carController.addCar}" />
 
                 </h:form>
             </div>
@@ -232,9 +232,9 @@
                         <div class="cell small-8">
                             <label>
                                 Old driver:
-                                <h:selectOneMenu value="#{carAndDriverController.driver.id}" >
+                                <h:selectOneMenu value="#{driverController.driver.id}" >
                                     <f:selectItems
-                                            value="#{carAndDriverController.allDrivers}"
+                                            value="#{driverController.allDrivers}"
                                             var="driver"
                                             itemLabel="#{driver.name} #{driver.surname}"
                                             itemValue="#{driver.id}" />
@@ -248,9 +248,9 @@
                         <div class="cell small-8">
                             <label>
                                 The car he now drives:
-                                <h:selectOneMenu value="#{carAndDriverController.car.id}">
+                                <h:selectOneMenu value="#{driverController.car.id}">
                                     <f:selectItems
-                                            value="#{carAndDriverController.carsWithoutDrivers}"
+                                            value="#{carController.carsWithoutDrivers}"
                                             var="car"
                                             itemLabel="#{car.manufacturer} #{car.model}"
                                             itemValue="#{car.id}" />
@@ -263,7 +263,7 @@
                     <h:commandButton
                         class="button primary"
                         value="Attach car to driver"
-                        action="#{carAndDriverController.attachCarToDriver}" />
+                        action="#{driverController.attachCarToDriver}" />
                 </h:form>
             </div>
         </div>

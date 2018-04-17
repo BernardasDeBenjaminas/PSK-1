@@ -1,6 +1,5 @@
 package lt.vu.mif.Controllers;
 
-
 import lombok.Getter;
 import lombok.Setter;
 import lt.vu.mif.Entities.Car;
@@ -12,8 +11,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,16 +19,14 @@ import java.util.List;
 @Getter
 @Setter
 @ViewScoped
-public class CarAndDriverController implements Serializable {
-
-    @PersistenceContext
-    private EntityManager em;
+public class CarController implements Serializable {
 
     @Inject
     private CarRepository carRepository;
     @Inject
     private DriverRepository driverRepository;
 
+    private Driver driver = new Driver();
     private Car car = new Car();
     private List<Car> allCars;
     private List<Car> carsInRepair = new ArrayList<>();
@@ -39,56 +34,32 @@ public class CarAndDriverController implements Serializable {
     private List<Car> carsWithDrivers = new ArrayList<>();
     private List<Car> carsWithoutDrivers = new ArrayList<>();
 
-    private Driver driver = new Driver();
-    private List<Driver> allDrivers = new ArrayList<>();
-
 
     @PostConstruct
-    public void init() {
-        allDrivers = driverRepository.getAll();
+    private void init() {
         allCars = carRepository.getAll();
 
-        for (Car car : allCars) {
+        for (Car item : allCars) {
             // With/without drivers
-            if (car.getDriver() == null) {
-                carsWithoutDrivers.add(car);
+            if (item.getDriver() == null) {
+                carsWithoutDrivers.add(item);
             } else {
-                carsWithDrivers.add(car);
+                carsWithDrivers.add(item);
             }
 
             // [Not] in repair
-            if (car.getShops().isEmpty()) {
-                carsNotInRepair.add(car);
+            if (item.getShops().isEmpty()) {
+                carsNotInRepair.add(item);
             } else {
-                carsInRepair.add(car);
+                carsInRepair.add(item);
             }
         }
     }
 
     public String addCar() {
-        if (driver.getId() != null) {
-            driver = driverRepository.get(driver.getId());
-        } else {
-            driver = null;
-        }
+        driver = driver.getId() == null ? null : driverRepository.get(driver.getId());
         car.setDriver(driver);
         carRepository.add(car);
-
-        return "index";
-    }
-
-    public String addDriver() {
-        driverRepository.add(driver);
-        return "index";
-    }
-
-    public String attachCarToDriver() {
-        driver = driverRepository.get(driver.getId());
-        car = carRepository.get(car.getId());
-
-        car.setDriver(driver);
-        carRepository.update(car);
-
         return "index";
     }
 }
