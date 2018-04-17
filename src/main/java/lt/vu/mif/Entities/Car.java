@@ -5,11 +5,12 @@ import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"manufacturer", "model"})
+@EqualsAndHashCode
 @Table(name = "CARS")
 @NamedQueries({
     @NamedQuery(name = "Cars.getAll", query = "SELECT c FROM Car AS c")
@@ -22,7 +23,9 @@ public class Car implements Serializable {
 
     @ManyToOne
     private Driver driver;
-//    private List<Integer> shopIds;
+
+    @ManyToMany(mappedBy = "cars", fetch = FetchType.EAGER)
+    private List<Shop> shops;
 
     @Column(name = "MANUFACTURER")
     private String manufacturer;

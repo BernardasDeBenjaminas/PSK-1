@@ -9,7 +9,94 @@
 </h:head>
 <h:body>
 
-    <div class="grid-container fluid">
+    <div id="main" class="grid-container fluid">
+
+        <div class="grid-x">
+            <div class="cell small-4">
+                <h1>SHOPS</h1>
+
+                <h4>All shops</h4>
+                <ul>
+                    <ui:repeat value="#{shopController.allShops}" var="shop">
+                        <li>
+                            #{shop.name} (#{shop.address})
+                            <b>currently services:</b>
+                            <ui:repeat value="#{shop.cars}" var="car">
+                                #{car.manufacturer} #{car.model},
+                            </ui:repeat>
+                        </li>
+                    </ui:repeat>
+                </ul>
+            </div>
+
+            <div class="cell small-4">
+                <h1>Add new shop</h1>
+                <h:form>
+                    <!-- Name -->
+                    <div class="grid-x">
+                        <div class="cell small-8">
+                            <label>
+                                Name:
+                                <h:inputText value="#{shopController.shop.name}" />
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Address -->
+                    <div class="grid-x">
+                        <div class="cell small-8">
+                            <label>
+                                Address:
+                                <h:inputText value="#{shopController.shop.address}" />
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- [Button] Add shop -->
+                    <h:commandButton
+                            class="button primary"
+                            value="Add shop"
+                            action="#{shopController.addShop}" />
+                </h:form>
+            </div>
+
+            <div class="cell small-4">
+                <h1>Add car to shop</h1>
+
+                <div class="grid-x">
+                    <div class="cell small-8">
+                        <h:form>
+                            <!-- Shop -->
+                            <h:selectOneMenu value="#{shopController.shop.id}">
+                                <f:selectItems
+                                        value="#{shopController.allShops}"
+                                        var="shop"
+                                        itemLabel="#{shop.name} (#{shop.address})"
+                                        itemValue="#{shop.id}" />
+                            </h:selectOneMenu>
+
+                            <!-- Cars -->
+                            <h:selectOneMenu value="#{shopController.car.id}">
+                                <f:selectItems
+                                        value="#{carAndDriverController.carsNotInRepair}"
+                                        var="car"
+                                        itemLabel="#{car.manufacturer} #{car.model}"
+                                        itemValue="#{car.id}" />
+                            </h:selectOneMenu>
+
+                            <!-- [Button] Add car to shop -->
+                            <h:commandButton
+                                    class="button primary"
+                                    value="Add car to shop"
+                                    action="#{shopController.addCarToShop}" />
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
         <div class="grid-x">
             <div class="cell shrink small-4">
                 <h1>DRIVERS</h1>
@@ -48,7 +135,7 @@
                         </div>
                     </div>
 
-                    <!-- [Button] Submit -->
+                    <!-- [Button] Add driver -->
                     <h:commandButton
                         class="button primary"
                         value="Add driver"

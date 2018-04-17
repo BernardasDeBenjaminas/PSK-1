@@ -34,6 +34,8 @@ public class CarAndDriverController implements Serializable {
 
     private Car car = new Car();
     private List<Car> allCars;
+    private List<Car> carsInRepair = new ArrayList<>();
+    private List<Car> carsNotInRepair = new ArrayList<>();
     private List<Car> carsWithDrivers = new ArrayList<>();
     private List<Car> carsWithoutDrivers = new ArrayList<>();
 
@@ -47,15 +49,23 @@ public class CarAndDriverController implements Serializable {
         allCars = carRepository.getAll();
 
         for (Car car : allCars) {
+            // With/without drivers
             if (car.getDriver() == null) {
                 carsWithoutDrivers.add(car);
             } else {
                 carsWithDrivers.add(car);
             }
+
+            // [Not] in repair
+            if (car.getShops().isEmpty()) {
+                carsNotInRepair.add(car);
+            } else {
+                carsInRepair.add(car);
+            }
         }
     }
 
-    public void addCar() {
+    public String addCar() {
         if (driver.getId() != null) {
             driver = driverRepository.get(driver.getId());
         } else {
@@ -63,27 +73,22 @@ public class CarAndDriverController implements Serializable {
         }
         car.setDriver(driver);
         carRepository.add(car);
-        carsWithDrivers.add(car);
 
-        driver = new Driver();
-        car = new Car();
+        return "index";
     }
 
-    public void addDriver() {
+    public String addDriver() {
         driverRepository.add(driver);
-        allDrivers.add(driver);
-
-        driver = new Driver();
+        return "index";
     }
 
-    public void attachCarToDriver() {
+    public String attachCarToDriver() {
         driver = driverRepository.get(driver.getId());
         car = carRepository.get(car.getId());
 
         car.setDriver(driver);
         carRepository.update(car);
 
-        driver = new Driver();
-        car = new Car();
+        return "index";
     }
 }
