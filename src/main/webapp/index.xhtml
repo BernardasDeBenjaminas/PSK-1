@@ -6,27 +6,35 @@
 >
 <h:head>
     <h:outputStylesheet name="/css/vendor/foundation.css" />
+    <h:outputStylesheet name="/css/styles.css" />
 </h:head>
 <h:body>
 
     <div id="main" class="grid-container fluid">
 
-        <div class="grid-x">
+        <div class="grid-x section">
             <div class="cell small-4">
                 <h1>SHOPS</h1>
 
-                <h4>All shops</h4>
-                <ul>
-                    <ui:repeat value="#{shopController.allShops}" var="shop">
-                        <li>
-                            #{shop.name} (#{shop.address})
-                            <b>currently services:</b>
-                            <ui:repeat value="#{shop.cars}" var="car">
-                                #{car.manufacturer} #{car.model},
+                <div class="grid-x">
+                    <div class="cell small-8">
+                        <h4>All shops</h4>
+                        <ul>
+                            <ui:repeat value="#{shopController.allShops}" var="shop">
+                                <li>
+                                    #{shop.name} (#{shop.address})
+                                    <b>currently services:</b>
+                                    <ol>
+                                        <ui:repeat value="#{shop.cars}" var="car">
+                                            <li> #{car.manufacturer} #{car.model} </li>
+                                        </ui:repeat>
+                                    </ol>
+                                </li>
                             </ui:repeat>
-                        </li>
-                    </ui:repeat>
-                </ul>
+                        </ul>
+                    </div>
+                </div>
+
             </div>
 
             <div class="cell small-4">
@@ -97,7 +105,7 @@
 
 
 
-        <div class="grid-x">
+        <div class="grid-x section">
             <div class="cell shrink small-4">
                 <h1>DRIVERS</h1>
 
@@ -106,9 +114,12 @@
                     <ui:repeat value="#{carAndDriverController.allDrivers}" var="driver">
                         <li>
                             #{driver.name} #{driver.surname} <b>drives:</b>
-                            <ui:repeat value="#{driver.cars}" var="car">
-                                #{car.manufacturer} #{car.model},
-                            </ui:repeat>
+                            <ol>
+                                <ui:repeat value="#{driver.cars}" var="car">
+                                    <li> #{car.manufacturer} #{car.model} </li>
+                                </ui:repeat>
+                            </ol>
+
                         </li>
                     </ui:repeat>
                 </ul>
@@ -156,7 +167,11 @@
                 <h4>With drivers</h4>
                 <ul>
                     <ui:repeat value="#{carAndDriverController.carsWithDrivers}" var="car">
-                        <li>#{car.manufacturer} #{car.model} <b>driven by:</b> #{car.driver.name} #{car.driver.surname}</li>
+                        <li>
+                            #{car.manufacturer} #{car.model}
+                            <b>driven by:</b>
+                            #{car.driver.name} #{car.driver.surname}
+                        </li>
                     </ui:repeat>
                 </ul>
 
