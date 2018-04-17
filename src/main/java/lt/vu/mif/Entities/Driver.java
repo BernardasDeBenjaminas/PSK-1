@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -19,7 +21,9 @@ public class Driver implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-//    private List<Integer> carIds;
+
+    @OneToMany(mappedBy = "driver", fetch = FetchType.EAGER)
+    private List<Car> cars = new ArrayList<>();
 
     @Column(name = "NAME")
     private String name;

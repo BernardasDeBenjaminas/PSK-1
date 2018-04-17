@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Entity
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(of = {"manufacturer", "model"})
 @Table(name = "CARS")
 @NamedQueries({
     @NamedQuery(name = "Cars.getAll", query = "SELECT c FROM Car AS c")
@@ -20,7 +20,7 @@ public class Car implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToOne
+    @ManyToOne
     private Driver driver;
 //    private List<Integer> shopIds;
 

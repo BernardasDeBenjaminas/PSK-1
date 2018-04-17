@@ -4,72 +4,172 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core"
 >
-<h:head/>
+<h:head>
+    <h:outputStylesheet name="/css/vendor/foundation.css" />
+</h:head>
 <h:body>
 
-    <h2>Current drivers!</h2>
-    <ul>
-        <ui:repeat value="#{driverController.allDrivers}" var="driver">
-            <li>#{driver.name} #{driver.surname}</li>
-        </ui:repeat>
-    </ul>
+    <div class="grid-container fluid">
+        <div class="grid-x">
+            <div class="cell shrink small-4">
+                <h1>DRIVERS</h1>
 
-    <h2>Add new driver!</h2>
-    <h:form>
-        <!-- Name -->
-        <label>Name:</label>
-        <br />
-        <h:inputText value="#{driverController.driver.name}" />
-        <br />
+                <h4>All drivers</h4>
+                <ul>
+                    <ui:repeat value="#{carAndDriverController.allDrivers}" var="driver">
+                        <li>
+                            #{driver.name} #{driver.surname} <b>drives:</b>
+                            <ui:repeat value="#{driver.cars}" var="car">
+                                #{car.manufacturer} #{car.model},
+                            </ui:repeat>
+                        </li>
+                    </ui:repeat>
+                </ul>
 
-        <!-- Surname -->
-        <label>Surname:</label>
-        <br />
-        <h:inputText value="#{driverController.driver.surname}" />
-        <br />
+                <h4>Add new driver</h4>
+                <h:form>
+                    <!-- Name -->
+                    <div class="grid-x">
+                        <div class="cell small-8">
+                            <label>
+                                Name:
+                                <h:inputText value="#{carAndDriverController.driver.name}" />
+                            </label>
+                        </div>
+                    </div>
 
-        <!-- [Button] Submit -->
-        <h:commandButton value="Create" action="#{driverController.saveChanges}" />
-    </h:form>
+                    <!-- Surname -->
+                    <div class="grid-x">
+                        <div class="cell small-8">
+                            <label>
+                                Surname:
+                                <h:inputText value="#{carAndDriverController.driver.surname}" />
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- [Button] Submit -->
+                    <h:commandButton
+                        class="button primary"
+                        value="Add driver"
+                        action="#{carAndDriverController.addDriver}" />
+                </h:form>
+            </div>
+
+            <div class="cell shrink small-4">
+                <h1>CARS</h1>
+
+                <h4>Without drivers</h4>
+                <ul>
+                    <ui:repeat value="#{carAndDriverController.carsWithoutDrivers}" var="car">
+                        <li>#{car.manufacturer} #{car.model}</li>
+                    </ui:repeat>
+                </ul>
+
+                <h4>With drivers</h4>
+                <ul>
+                    <ui:repeat value="#{carAndDriverController.carsWithDrivers}" var="car">
+                        <li>#{car.manufacturer} #{car.model} <b>driven by:</b> #{car.driver.name} #{car.driver.surname}</li>
+                    </ui:repeat>
+                </ul>
+
+                <h4>Add new car</h4>
+                <h:form>
+                    <!-- Manufacturer -->
+                    <div class="grid-x">
+                        <div class="cell small-8">
+                            <label>
+                                Manufacturer:
+                                <h:inputText value="#{carAndDriverController.car.manufacturer}" />
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Model -->
+                    <div class="grid-x">
+                        <div class="cell small-8">
+                            <label>
+                                Model:
+                                <h:inputText value="#{carAndDriverController.car.model}" />
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Driver -->
+                    <div class="grid-x">
+                        <div class="cell small-8">
+                            <label>
+                                Driver:
+                                <h:selectOneMenu value="#{carAndDriverController.driver.id}">
+                                    <f:selectItem itemValue="#{null}" itemLabel="No driver" />
+                                    <f:selectItems
+                                            value="#{carAndDriverController.allDrivers}"
+                                            var="driver"
+                                            itemLabel="#{driver.name} #{driver.surname}"
+                                            itemValue="#{driver.id}" />
+                                </h:selectOneMenu>
+                            </label>
+                        </div>
+                    </div>
+                    <label>Driver:</label>
+
+                    <!-- [Button] Create new car -->
+                    <h:commandButton
+                            class="button primary"
+                            value="Add car"
+                            action="#{carAndDriverController.addCar}" />
+
+                </h:form>
+            </div>
+
+            <div class="cell shrink small-4">
+                <h1>Old driver, new car?</h1>
+                <h:form>
+                    <!-- Old driver -->
+                    <div class="grid-x">
+                        <div class="cell small-8">
+                            <label>
+                                Old driver:
+                                <h:selectOneMenu value="#{carAndDriverController.driver.id}" >
+                                    <f:selectItems
+                                            value="#{carAndDriverController.allDrivers}"
+                                            var="driver"
+                                            itemLabel="#{driver.name} #{driver.surname}"
+                                            itemValue="#{driver.id}" />
+                                </h:selectOneMenu>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Old car -->
+                    <div class="grid-x">
+                        <div class="cell small-8">
+                            <label>
+                                The car he now drives:
+                                <h:selectOneMenu value="#{carAndDriverController.car.id}">
+                                    <f:selectItems
+                                            value="#{carAndDriverController.carsWithoutDrivers}"
+                                            var="car"
+                                            itemLabel="#{car.manufacturer} #{car.model}"
+                                            itemValue="#{car.id}" />
+                                </h:selectOneMenu>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- [Button] Add car to old driver -->
+                    <h:commandButton
+                        class="button primary"
+                        value="Attach car to driver"
+                        action="#{carAndDriverController.attachCarToDriver}" />
+                </h:form>
+            </div>
+        </div>
+    </div>
 
 
 
-    <h2>Current cars!</h2>
-    <ul>
-        <ui:repeat value="#{carController.allCars}" var="car">
-            <li>#{car.manufacturer} #{car.model} driven by: #{car.driver.name} #{car.driver.surname}</li>
-        </ui:repeat>
-    </ul>
-
-    <h2>Add new car!</h2>
-    <h:form>
-        <!-- Manufacturer -->
-        <label>Manufacturer:</label>
-        <br />
-        <h:inputText value="#{carController.car.manufacturer}" />
-        <br />
-
-        <!-- Model -->
-        <label>Model:</label>
-        <br />
-        <h:inputText value="#{carController.car.model}" />
-        <br />
-
-        <!-- Driver -->
-        <label>Driver:</label>
-        <br />
-        <h:selectOneMenu value="#{carController.car.driver}" converter="#{driverConverter}">
-            <f:selectItems
-                value="#{driverController.allDrivers}"
-                var="driver"
-                itemLabel="#{driver.name} #{driver.surname}"
-                itemValue="#{driver}" />
-        </h:selectOneMenu>
-        <br />
-
-        <!-- [Button] Submit -->
-        <h:commandButton value="Create" action="#{carController.saveChanges}" />
-    </h:form>
-
+    <h:outputScript name="js/vendor/jquery-3.3.1.js"/>
+    <h:outputScript name="js/vendor/foundation.js" />
 </h:body>
 </html>
