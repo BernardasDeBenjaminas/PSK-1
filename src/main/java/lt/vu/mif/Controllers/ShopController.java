@@ -8,17 +8,18 @@ import lt.vu.mif.Repositories.CarRepository;
 import lt.vu.mif.Repositories.ShopRepository;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Named
 @Getter
 @Setter
-@RequestScoped
-public class ShopController {
+@ViewScoped
+public class ShopController implements Serializable {
 
     @Inject
     private ShopRepository shopRepository;
