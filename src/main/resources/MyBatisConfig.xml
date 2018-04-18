@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <typeAlias type="lt.vu.mif.Entities.Car" alias="Car" />
+        <typeAlias type="lt.vu.mif.Entities.Shop" alias="Shop" />
+        <typeAlias type="lt.vu.mif.Entities.Driver" alias="Driver" />
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+
+            <!-- My version -->
+            <transactionManager type="MANAGED" />
+
+            <dataSource type="POOLED">
+                <property name="driver" value="org.h2.Driver" />
+                <property name="url" value="jdbc:h2:~/h2database/IndustryDB;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;" />
+                <property name="username" value="sa" />
+                <property name="password" value="sa" />
+            </dataSource>
+
+            <!-- Professor's version -->
+            <!--<transactionManager type="MANAGED"/>-->
+            <!--<dataSource type="JNDI">-->
+                <!--<property name="data_source" value="openejb:Resource/IndustryDataSource"/>-->
+            <!--</dataSource>-->
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="mybatis.xml/CarsMapper.xml" />
+        <mapper resource="mybatis.xml/ShopsMapper.xml" />
+        <mapper resource="mybatis.xml/DriversMapper.xml" />
+    </mappers>
+
+</configuration>
