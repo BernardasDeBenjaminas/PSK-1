@@ -1,38 +1,31 @@
 package lt.vu.mif.Controllers;
 
-import lombok.Getter;
-import lombok.Setter;
 import lt.vu.mif.Entities.Car;
 import lt.vu.mif.Entities.Driver;
 import lt.vu.mif.Repositories.CarRepository;
 import lt.vu.mif.Repositories.DriverRepository;
 
-import javax.annotation.PostConstruct;
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.io.Serializable;
-import java.util.ArrayList;
+import lombok.Getter;
+import lombok.Setter;
 import java.util.List;
+import java.util.ArrayList;
+import javax.annotation.PostConstruct;
+import javax.enterprise.inject.Model;
+import javax.inject.Inject;
 
-@Named
-@Getter
-@Setter
-@ViewScoped
-public class CarController implements Serializable {
+@Model
+public class CarController {
 
-    @Inject
-    private CarRepository carRepository;
-    @Inject
-    private DriverRepository driverRepository;
+    @Inject private CarRepository carRepository;
+    @Inject private DriverRepository driverRepository;
 
-    private Driver driver = new Driver();
-    private Car car = new Car();
-    private List<Car> allCars;
-    private List<Car> carsInRepair = new ArrayList<>();
-    private List<Car> carsNotInRepair = new ArrayList<>();
-    private List<Car> carsWithDrivers = new ArrayList<>();
-    private List<Car> carsWithoutDrivers = new ArrayList<>();
+    @Getter @Setter Driver driver = new Driver();
+    @Getter @Setter private Car car = new Car();
+    @Getter @Setter private List<Car> allCars;
+    @Getter @Setter private List<Car> carsInRepair = new ArrayList<>();
+    @Getter @Setter private List<Car> carsNotInRepair = new ArrayList<>();
+    @Getter @Setter private List<Car> carsWithDrivers = new ArrayList<>();
+    @Getter @Setter private List<Car> carsWithoutDrivers = new ArrayList<>();
 
 
     @PostConstruct
@@ -60,6 +53,6 @@ public class CarController implements Serializable {
         driver = driver.getId() == null ? null : driverRepository.get(driver.getId());
         car.setDriver(driver);
         carRepository.add(car);
-        return "index";
+        return "index?faces-redirect=true";
     }
 }

@@ -8,28 +8,20 @@ import lt.vu.mif.Repositories.CarRepository;
 import lt.vu.mif.Repositories.ShopRepository;
 
 import javax.annotation.PostConstruct;
-import javax.faces.view.ViewScoped;
+import javax.enterprise.inject.Model;
 import javax.inject.Inject;
-import javax.inject.Named;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Named
-@Getter
-@Setter
-@ViewScoped
-public class ShopController implements Serializable {
+@Model
+public class ShopController {
 
-    @Inject
-    private ShopRepository shopRepository;
+    @Inject private ShopRepository shopRepository;
+    @Inject private CarRepository carRepository;
 
-    @Inject
-    private CarRepository carRepository;
-
-    private Car car = new Car();
-    private Shop shop = new Shop();
-    private List<Shop> allShops = new ArrayList<>();
+    @Getter @Setter Car car = new Car();
+    @Getter @Setter private Shop shop = new Shop();
+    @Getter @Setter private List<Shop> allShops = new ArrayList<>();
 
 
     @PostConstruct
@@ -39,7 +31,7 @@ public class ShopController implements Serializable {
 
     public String addShop() {
         shopRepository.add(shop);
-        return "index";
+        return "index?faces-redirect=true";
     }
 
     public String addCarToShop() {
@@ -49,6 +41,6 @@ public class ShopController implements Serializable {
         shop.getCars().add(car);
         shopRepository.update(shop);
 
-        return "index";
+        return "index?faces-redirect=true";
     }
 }

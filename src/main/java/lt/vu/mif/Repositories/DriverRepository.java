@@ -37,6 +37,7 @@ public class DriverRepository {
 
     @Transactional
     public void delete(Driver driver) {
+        driver = em.contains(driver) ? driver : em.merge(driver);
         em.remove(driver);
     }
 }

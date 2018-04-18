@@ -1,6 +1,7 @@
 package lt.vu.mif.Repositories;
 
 import lt.vu.mif.Entities.Car;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -36,6 +37,7 @@ public class CarRepository {
 
     @Transactional
     public void delete(Car car) {
+        car = em.contains(car) ? car : em.merge(car);
         em.remove(car);
     }
 }

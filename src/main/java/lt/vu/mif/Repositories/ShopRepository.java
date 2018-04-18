@@ -1,6 +1,5 @@
 package lt.vu.mif.Repositories;
 
-import lt.vu.mif.Entities.Driver;
 import lt.vu.mif.Entities.Shop;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -38,6 +37,7 @@ public class ShopRepository {
 
     @Transactional
     public void delete(Shop shop) {
+        shop = em.contains(shop) ? shop : em.merge(shop);
         em.remove(shop);
     }
 }
