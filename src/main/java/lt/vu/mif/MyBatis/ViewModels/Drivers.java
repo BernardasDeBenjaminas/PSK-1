@@ -1,5 +1,6 @@
 package lt.vu.mif.MyBatis.ViewModels;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Drivers {
@@ -102,7 +103,7 @@ public class Drivers {
         this.surname = surname;
     }
 
-    public List<Cars> cars;
+    public List<Cars> cars = new ArrayList<>();
     public List<Cars> getCars() {return this.cars;}
     public void setCars(List<Cars> cars) { this.cars = cars;}
 }

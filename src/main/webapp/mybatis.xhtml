@@ -14,26 +14,7 @@
 
         <div class="grid-x section">
             <div class="cell small-4">
-                <h1>SHOPS</h1>
 
-                <div class="grid-x">
-                    <div class="cell small-8">
-                        <h4>All shops</h4>
-                        <ul>
-                            <ui:repeat value="#{myBatisShopsController.allShops}" var="shop">
-                                <li>
-                                    #{shop.name} (#{shop.address})
-                                    <!--<b>currently services:</b>-->
-                                    <!--<ol>-->
-                                        <!--<ui:repeat value="#{shop.cars}" var="car">-->
-                                            <!--<li> #{car.manufacturer} #{car.model} </li>-->
-                                        <!--</ui:repeat>-->
-                                    <!--</ol>-->
-                                </li>
-                            </ui:repeat>
-                        </ul>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -44,33 +25,24 @@
                 <h1>DRIVERS</h1>
 
                 <h4>All drivers</h4>
-                <ul>
+                <ol>
                     <ui:repeat value="#{myBatisDriversController.allDrivers}" var="driver">
                         <li>
                             #{driver.name} #{driver.surname}
-                            <!--<b>drives:</b>-->
-                            <!--<ol>-->
-                                <!--<ui:repeat value="#{driver.cars}" var="car">-->
-                                    <!--<li> #{car.manufacturer} #{car.model} </li>-->
-                                <!--</ui:repeat>-->
-                            <!--</ol>-->
+                            <b>drives:</b>
+                            <ul>
+                                <ui:repeat value="#{driver.cars}" var="car">
+                                    <li> #{car.manufacturer} #{car.model} </li>
+                                </ui:repeat>
+                            </ul>
                         </li>
                     </ui:repeat>
-                </ul>
+                </ol>
             </div>
 
             <div class="cell shrink small-4">
-                <h1>CARS</h1>
-
-                <h4>All cars</h4>
-                <ul>
-                    <ui:repeat value="#{myBatisCarsController.allCars}" var="car">
-                        <li>
-                            #{car.manufacturer} #{car.model}
-                        </li>
-                    </ui:repeat>
-                </ul>
             </div>
+
         </div>
     </div>
 

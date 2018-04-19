@@ -132,4 +132,9 @@ public class Cars {
     public void setDriverId(Integer driverId) {
         this.driverId = driverId;
     }
+
+
+    public Drivers driver;
+    public Drivers getDriver() {return this.driver;}
+    public void setDriver(Drivers driver) {this.driver = driver;}
 }

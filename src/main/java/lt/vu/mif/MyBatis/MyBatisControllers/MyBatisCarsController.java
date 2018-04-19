@@ -24,6 +24,12 @@ public class MyBatisCarsController {
 
     @PostConstruct
     private void init() {
+
         allCars = carsMapper.selectAll();
+    }
+
+    public String addCar() {
+        carsMapper.insert(car);
+        return "index?faces-redirect=true";
     }
 }
