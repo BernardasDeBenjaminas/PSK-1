@@ -24,7 +24,6 @@ public class MyBatisCarsController {
 
     @PostConstruct
     private void init() {
-
         allCars = carsMapper.selectAll();
     }
 

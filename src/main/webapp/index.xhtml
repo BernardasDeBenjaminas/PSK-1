@@ -20,19 +20,19 @@
                 <div class="grid-x">
                     <div class="cell small-8">
                         <h4>All shops</h4>
-                        <ul>
+                        <ol>
                             <ui:repeat value="#{shopController.allShops}" var="shop">
                                 <li>
                                     #{shop.name} (#{shop.address})
                                     <b>currently services:</b>
-                                    <ol>
+                                    <ul>
                                         <ui:repeat value="#{shop.cars}" var="car">
                                             <li> #{car.manufacturer} #{car.model} </li>
                                         </ui:repeat>
-                                    </ol>
+                                    </ul>
                                 </li>
                             </ui:repeat>
-                        </ul>
+                        </ol>
                     </div>
                 </div>
 
@@ -111,19 +111,19 @@
                 <h1>DRIVERS</h1>
 
                 <h4>All drivers</h4>
-                <ul>
+                <ol>
                     <ui:repeat value="#{driverController.allDrivers}" var="driver">
                         <li>
                             #{driver.name} #{driver.surname} <b>drives:</b>
-                            <ol>
+                            <ul>
                                 <ui:repeat value="#{driver.cars}" var="car">
                                     <li> #{car.manufacturer} #{car.model} </li>
                                 </ui:repeat>
-                            </ol>
+                            </ul>
 
                         </li>
                     </ui:repeat>
-                </ul>
+                </ol>
 
                 <h4>Add new driver</h4>
                 <h:form>
@@ -175,6 +175,7 @@
                         </li>
                     </ui:repeat>
                 </ul>
+
 
                 <h4>Add new car</h4>
                 <h:form>
