@@ -30,6 +30,6 @@ public class MyBatisCarsController {
 
     public String addCar() {
         carsMapper.insert(car);
-        return "index?faces-redirect=true";
+        return "mybatis?faces-redirect=true";
     }
 }

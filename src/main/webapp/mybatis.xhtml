@@ -41,6 +41,63 @@
             </div>
 
             <div class="cell shrink small-4">
+                <h1>CARS</h1>
+
+                <h4>All cars</h4>
+                <ol>
+                    <ui:repeat value="#{myBatisCarsController.allCars}" var="car">
+                        <li>
+                            #{car.manufacturer} #{car.model}
+                        </li>
+                    </ui:repeat>
+                </ol>
+
+                <h4>Add new car</h4>
+                <h:form>
+                    <!-- Manufacturer -->
+                    <div class="grid-x">
+                        <div class="cell small-8">
+                            <label>
+                                Manufacturer:
+                                <h:inputText value="#{myBatisCarsController.car.manufacturer}" />
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Model -->
+                    <div class="grid-x">
+                        <div class="cell small-8">
+                            <label>
+                                Model:
+                                <h:inputText value="#{myBatisCarsController.car.model}" />
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Driver -->
+                    <div class="grid-x">
+                        <div class="cell small-8">
+                            <label>
+                                Driver:
+                                <h:selectOneMenu value="#{myBatisCarsController.car.driverId}">
+                                    <f:selectItem itemValue="#{null}" itemLabel="No driver" />
+                                    <f:selectItems
+                                            value="#{myBatisDriversController.allDrivers}"
+                                            var="driver"
+                                            itemLabel="#{driver.name} #{driver.surname}"
+                                            itemValue="#{driver.id}" />
+                                </h:selectOneMenu>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- [Button] Create new car -->
+                    <h:commandButton
+                            class="button primary"
+                            value="Add car"
+                            action="#{myBatisCarsController.addCar}" />
+
+                </h:form>
             </div>
 
         </div>
