@@ -1,5 +1,6 @@
 package lt.vu.mif.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,6 +27,7 @@ public class Car implements Serializable {
     private Integer version = 0;
 
     @ManyToOne
+    @JsonIgnore
     private Driver driver;
 
     @ManyToMany(mappedBy = "cars", fetch = FetchType.EAGER)
@@ -46,4 +48,7 @@ public class Car implements Serializable {
     public String toString() {
         return this.manufacturer + " " + this.model;
     }
+
+    @JsonIgnore
+    public Driver getDriver() {return this.driver;}
 }
