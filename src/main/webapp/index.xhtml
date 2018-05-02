@@ -15,10 +15,13 @@
 
         <div class="grid-x section">
             <div class="cell small-4">
-                <h4>Cause OptimisticLockException</h4>
+                <h4>
+                    Cause
+                    <b>OptimisticLockException</b>
+                </h4>
                 <h:form>
                     <h:commandButton
-                        class="button warning"
+                        class="button"
                         value="Modify car"
                         action="#{exceptionController.modifyCar}"
                     />
@@ -26,9 +29,32 @@
 
                 <h:form>
                     <h:commandButton
-                        class="button danger"
+                        class="button warning"
                         value="Modify same car but quicker"
                         action="#{exceptionController.modifyCarButFaster}"
+                    />
+                </h:form>
+            </div>
+
+            <div class="cell small-4">
+                <h4>
+                    Handle
+                    <b>OptimisticLockException</b>
+                </h4>
+
+                <h:form>
+                    <h:commandButton
+                            class="button"
+                            value="Safely modify car"
+                            action="#{exceptionController.modifyCarSafe}"
+                    />
+                </h:form>
+
+                <h:form>
+                    <h:commandButton
+                            class="button warning"
+                            value="Modify same car but quicker and safer"
+                            action="#{exceptionController.modifyCarButFasterAndSafer}"
                     />
                 </h:form>
             </div>
@@ -186,6 +212,7 @@
                         <li>#{car.manufacturer} #{car.model}</li>
                     </ui:repeat>
                 </ul>
+
 
                 <h4>With drivers</h4>
                 <ul>
