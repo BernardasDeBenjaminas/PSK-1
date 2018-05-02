@@ -13,7 +13,26 @@
 
     <div id="main" class="grid-container fluid">
 
-        <h1>Hello</h1>
+        <div class="grid-x section">
+            <div class="cell small-4">
+                <h4>Cause OptimisticLockException</h4>
+                <h:form>
+                    <h:commandButton
+                        class="button warning"
+                        value="Modify car"
+                        action="#{exceptionController.modifyCar}"
+                    />
+                </h:form>
+
+                <h:form>
+                    <h:commandButton
+                        class="button danger"
+                        value="Modify same car but quicker"
+                        action="#{exceptionController.modifyCarButFaster}"
+                    />
+                </h:form>
+            </div>
+        </div>
 
         <div class="grid-x section">
             <div class="cell small-4">
@@ -23,6 +42,7 @@
                     <div class="cell small-8">
                         <h4>All shops</h4>
                         <ol>
+
                             <ui:repeat value="#{shopController.allShops}" var="shop">
                                 <li>
                                     #{shop.name} (#{shop.address})
@@ -186,7 +206,9 @@
                         <div class="cell small-8">
                             <label>
                                 Manufacturer:
+
                                 <h:inputText value="#{carController.car.manufacturer}" />
+
                             </label>
                         </div>
                     </div>

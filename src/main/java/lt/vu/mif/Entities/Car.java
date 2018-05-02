@@ -21,6 +21,10 @@ public class Car implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Version
+    @Column(name = "VERSION", columnDefinition = "integer DEFAULT 0")
+    private Integer version = 0;
+
     @ManyToOne
     private Driver driver;
 
