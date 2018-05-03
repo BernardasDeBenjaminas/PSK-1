@@ -34,9 +34,9 @@
                         action="#{exceptionController.modifyCarButFaster}"
                     />
                 </h:form>
-            </div>
 
-            <div class="cell small-4">
+                <br />
+
                 <h4>
                     Handle
                     <b>OptimisticLockException</b>
@@ -57,6 +57,18 @@
                             action="#{exceptionController.modifyCarButFasterAndSafer}"
                     />
                 </h:form>
+            </div>
+
+            <div class="cell small-4">
+                <h4>Generate license plate numbers async</h4>
+                <h:form>
+                    <h:commandButton
+                            class="button"
+                            value="Generate plate numbers"
+                            action="#{licensePlateController.generateLicensePlateNumbers}"
+                    />
+                </h:form>
+                <p>#{licensePlateController.licensePlate}</p>
             </div>
         </div>
 
