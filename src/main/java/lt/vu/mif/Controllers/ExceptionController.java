@@ -1,57 +1,74 @@
 package lt.vu.mif.Controllers;
 
 import lt.vu.mif.Entities.Car;
-import lt.vu.mif.Repositories.CarRepository;
 
-import javax.enterprise.inject.Model;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
+import javax.persistence.*;
 import javax.transaction.Transactional;
+import java.io.Serializable;
 
-@Model
+@Named
+@ApplicationScoped
 public class ExceptionController {
 
-    @Inject
-    private CarRepository carRepository;
+    @PersistenceUnit(name = "IndustryPU")
+    private EntityManagerFactory emf;
+
+    @PersistenceContext
+    private EntityManager em;
+
+
 
     @Transactional()
     public void modifyCar() throws InterruptedException {
-        Car car = carRepository.get(1);
+        Car car = em.find(Car.class, 1);
         Thread.sleep(5000);
-        // CHANGE THESE VALUES TO NEW ONES IF YOU WANT THE EXCEPTION
-        // 1. Kas nutinka su einamąja transakcija gavus klaidą?
-        //      - the transaction is marked for rollback;
-        // 2. Kas nutinka su einamuoju EntityManager, kai gauna klaida?
-        //      - managed instances become detached.
-        car.setModel("aqw");
-        carRepository.update(car); // Optimistic locking is used implicitly for writting
+        car.setModel("test2");
+        em.merge(car);
     }
 
     @Transactional()
     public void modifyCarButFaster() {
-        Car car = carRepository.get(1);
-        // CHANGE THESE VALUES TO NEW ONES IF YOU WANT THE EXCEPTION
-        car.setModel("dsa");
-        carRepository.update(car);
+        Car car = em.find(Car.class, 1);
+        car.setModel("real2");
+        em.merge(car);
     }
 
 
+
+
+
+
+    @Transactional
     public void modifyCarSafe() throws InterruptedException {
-        Car car = carRepository.get(1);
+        Car car = em.find(Car.class, 1);
         Thread.sleep(5000);
+        car.setModel("test8");
         try {
-            car.setModel("Menuliukas3");
-            carRepository.update(car);
-        } catch (Exception e) {
-            // Kitas būdas su session
-            car = carRepository.get(1);
-            car.setModel("Menuliukas3");
-            carRepository.update(car);
+            em.merge(car);
+            em.flush();
+        } catch (OptimisticLockException e) {
+            persistSafely(car);
         }
     }
 
+    @Transactional
     public void modifyCarButFasterAndSafer() {
-        Car car = carRepository.get(1);
-        car.setModel("Debeselis3");
-        carRepository.update(car);
+        Car car = em.find(Car.class, 1);
+        car.setModel("real8");
+        em.merge(car);
+    }
+
+    @Transactional(Transactional.TxType.REQUIRES_NEW)
+    public void persistSafely(Car car) {
+        EntityManager manager = emf.createEntityManager(SynchronizationType.SYNCHRONIZED);
+        Car originalCar = manager.find(Car.class, 1);
+        car.setVersion(originalCar.getVersion());
+        manager.merge(car);
+        manager.flush();
     }
 }
