@@ -1,7 +1,5 @@
 package lt.vu.mif.Controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lt.vu.mif.Entities.Car;
 import lt.vu.mif.Repositories.CarRepository;
 
@@ -17,43 +15,40 @@ public class ApiController {
 
     @Inject
     private CarRepository carRepository;
-    private ObjectMapper mapper = new ObjectMapper();
 
     @GET
-    public String getAll() throws JsonProcessingException {
-        List<Car> cars = carRepository.getAll();
-        return mapper.writeValueAsString(cars);
+    public List<Car> getAll() {
+        return carRepository.getAll();
     }
 
     @GET
     @Path("/{id}")
-    public String get(@PathParam("id") int id) throws JsonProcessingException {
-        Car car = carRepository.get(id);
-        return mapper.writeValueAsString(car);
+    public Car get(@PathParam("id") int id) {
+        return carRepository.get(id);
     }
 
     @PUT
     @Path("/create")
     @Transactional
-    public String create(@QueryParam("manufacturer") String manufacturer,
-                      @QueryParam("model") String model) throws JsonProcessingException {
+    public Car create(@QueryParam("manufacturer") String manufacturer,
+                      @QueryParam("model") String model) {
         Car car = new Car(manufacturer, model);
         carRepository.add(car);
-        return mapper.writeValueAsString(car);
+        return car;
     }
 
     @POST
     @Path("/update/{id}")
     @Transactional
-    public String update(@PathParam("id") Integer id,
+    public Car update(@PathParam("id") Integer id,
                            @QueryParam("manufacturer") String manufacturer,
-                           @QueryParam("model") String model) throws JsonProcessingException {
+                           @QueryParam("model") String model) {
         Car car = carRepository.get(id);
         if (car != null) {
             car.setManufacturer(manufacturer);
             car.setModel(model);
             carRepository.update(car);
-            return mapper.writeValueAsString(car);
+            return car;
         }
         return null;
     }
