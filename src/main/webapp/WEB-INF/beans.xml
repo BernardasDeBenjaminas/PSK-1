@@ -10,4 +10,8 @@
         <!--<class>lt.vu.mif.Services.LicensePlateGenerators.MockLithuanianLicensePlateGenerator</class>-->
         <class>lt.vu.mif.Services.LicensePlateGenerators.OtherMockLithuanianLicensePlateGenerator</class>
     </alternatives>
+
+    <interceptors>
+        <class>lt.vu.mif.Services.Interceptors.SpyParametersImpl</class>
+    </interceptors>
 </beans>

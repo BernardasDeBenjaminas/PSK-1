@@ -1,6 +1,7 @@
 package lt.vu.mif.Repositories;
 
 import lt.vu.mif.Entities.Car;
+import lt.vu.mif.Services.Interceptors.SpyParameters;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
@@ -16,6 +17,7 @@ public class CarRepository {
 
 
     @Transactional
+    @SpyParameters
     public void add(Car car) {
         em.persist(car);
     }
