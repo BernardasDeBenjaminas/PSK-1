@@ -1,4 +1,4 @@
-package lt.vu.mif.Services;
+package lt.vu.mif.Services.CustomAnnotations;
 
 import javax.inject.Qualifier;
 import java.lang.annotation.ElementType;

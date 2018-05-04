@@ -1,21 +1,17 @@
-package lt.vu.mif.Services;
+package lt.vu.mif.Services.LicensePlateGenerators;
 
 import javax.ejb.AsyncResult;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Specializes;
 import java.util.concurrent.Future;
 
-@Estonian
+@Specializes
 @ApplicationScoped
-public class EstonianLicensePlateGenerator extends ILicensePlateGenerator {
+public class FixedEstonianLicensePlateGenerator extends EstonianLicensePlateGenerator {
 
     public Future<String> generateLicensePlateNumbers() {
-        try {
-            Thread.sleep(200);
-        } catch (Exception e) {
-
-        }
-
         StringBuilder sb = new StringBuilder();
+        sb.append("[EU]");
         // Three numbers
         for (int i = 0; i < 3; i++) {
             sb.append(generateNumber());
@@ -27,7 +23,6 @@ public class EstonianLicensePlateGenerator extends ILicensePlateGenerator {
             char letter = generateLetter();
             sb.append(Character.toUpperCase(letter));
         }
-
         return new AsyncResult<>(sb.toString());
     }
 }
