@@ -1,11 +1,11 @@
 package lt.vu.mif.Controllers;
 
-import lt.vu.mif.Services.LicensePlateGenerator;
-
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Getter;
+import lt.vu.mif.Services.ILicensePlateGenerator;
+import lt.vu.mif.Services.Lithuanian;
 import java.io.Serializable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -14,8 +14,8 @@ import java.util.concurrent.Future;
 @SessionScoped
 public class LicensePlateController implements Serializable {
 
-    @Inject
-    private LicensePlateGenerator licensePlateGenerator;
+    @Inject @Lithuanian
+    private ILicensePlateGenerator licensePlateGenerator;
 
     @Getter
     private String licensePlate = "";
@@ -25,13 +25,13 @@ public class LicensePlateController implements Serializable {
     public String generateLicensePlateNumbers() throws ExecutionException, InterruptedException {
         if (licensePlateAsync == null) {
             licensePlate = "Calling the generator.";
-            licensePlateAsync = licensePlateGenerator.generateLicensePlateNumber();
+            licensePlateAsync = licensePlateGenerator.generateLicensePlateNumbers();
             return "index?faces-redirect=true";
         } else {
             if (licensePlateAsync.isDone()) {
                 String result = licensePlateAsync.get();
                 licensePlateAsync = null;
-                licensePlate = "The generated license plate number: " + result;
+                licensePlate = result;
                 return "index?faces-redirect=true";
             } else {
                 licensePlate = "Still waiting to finish generating.";
