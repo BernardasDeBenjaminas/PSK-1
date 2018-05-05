@@ -1,5 +1,7 @@
 package lt.vu.mif.Services.LicensePlateGenerators;
 
+import org.apache.deltaspike.core.api.future.Futureable;
+
 import javax.ejb.AsyncResult;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Specializes;
@@ -9,7 +11,11 @@ import java.util.concurrent.Future;
 @ApplicationScoped
 public class FixedEstonianLicensePlateGenerator extends EstonianLicensePlateGenerator {
 
+    @Override
+    @Futureable
     public Future<String> generateLicensePlateNumbers() {
+        try { Thread.sleep(4000); } catch (Exception e) {}
+
         StringBuilder sb = new StringBuilder();
         sb.append("[EU]");
         // Three numbers

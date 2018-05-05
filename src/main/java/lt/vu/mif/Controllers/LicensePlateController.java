@@ -4,8 +4,11 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Getter;
+import lt.vu.mif.Services.CustomAnnotations.Estonian;
 import lt.vu.mif.Services.LicensePlateGenerators.ILicensePlateGenerator;
 import lt.vu.mif.Services.CustomAnnotations.Lithuanian;
+import lt.vu.mif.Services.LicensePlateGenerators.LicensePlateGenerator;
+
 import java.io.Serializable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -14,7 +17,7 @@ import java.util.concurrent.Future;
 @SessionScoped
 public class LicensePlateController implements Serializable {
 
-    @Inject @Lithuanian
+    @Inject @Estonian
     private ILicensePlateGenerator licensePlateGenerator;
 
     @Getter

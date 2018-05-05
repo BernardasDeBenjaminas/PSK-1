@@ -1,27 +1,33 @@
 package lt.vu.mif.Services.LicensePlateGenerators;
 
-import lt.vu.mif.Services.CustomAnnotations.Lithuanian;
 import org.apache.deltaspike.core.api.future.Futureable;
 
 import javax.ejb.AsyncResult;
-import javax.enterprise.context.ApplicationScoped;
 import java.util.concurrent.Future;
 
-@Lithuanian
-@ApplicationScoped
-public class LithuanianLicensePlateGenerator extends LicensePlateGenerator {
+public abstract class LicensePlateGenerator implements ILicensePlateGenerator {
 
-    @Override
+    public char generateLetter() {
+        return (char)(random.nextInt('z' - 'a') + 'a');
+    }
+
+    public int generateNumber() {
+        return random.nextInt(9);
+    }
+
     @Futureable
     public Future<String> generateLicensePlateNumbers() {
-        try { Thread.sleep(4000); } catch (Exception e) {}
+        try {
+            Thread.sleep(4000);
+        } catch (Exception e) {
+
+        }
 
         StringBuilder sb = new StringBuilder();
         // Three letters
         for (int i = 0; i < 3; i++) {
-            sb.append(Character.toUpperCase(generateLetter()));
+            sb.append(generateLetter());
         }
-        sb.append(" ");
         // Three numbers
         for (int i = 0; i < 3; i++) {
             sb.append(generateNumber());

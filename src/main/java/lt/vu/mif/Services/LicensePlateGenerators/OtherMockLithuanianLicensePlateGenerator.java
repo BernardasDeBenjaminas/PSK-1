@@ -10,12 +10,10 @@ import java.util.concurrent.Future;
 @Lithuanian
 @Alternative
 @ApplicationScoped
-public class OtherMockLithuanianLicensePlateGenerator extends ILicensePlateGenerator {
+public class OtherMockLithuanianLicensePlateGenerator extends LicensePlateGenerator {
     public Future<String> generateLicensePlateNumbers() {
-        try {
-            Thread.sleep(4000);
-        } catch (Exception e) {
-        }
+        try { Thread.sleep(4000); } catch (Exception e) {}
+
         return new AsyncResult<>("OTHER_MOCK");
     }
 }

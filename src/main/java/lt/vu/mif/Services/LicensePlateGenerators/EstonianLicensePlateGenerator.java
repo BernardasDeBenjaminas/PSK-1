@@ -1,20 +1,20 @@
 package lt.vu.mif.Services.LicensePlateGenerators;
 
 import lt.vu.mif.Services.CustomAnnotations.Estonian;
+import org.apache.deltaspike.core.api.future.Futureable;
+
 import javax.ejb.AsyncResult;
 import javax.enterprise.context.ApplicationScoped;
 import java.util.concurrent.Future;
 
 @Estonian
 @ApplicationScoped
-public class EstonianLicensePlateGenerator extends ILicensePlateGenerator {
+public class EstonianLicensePlateGenerator extends LicensePlateGenerator {
 
+    @Override
+    @Futureable
     public Future<String> generateLicensePlateNumbers() {
-        try {
-            Thread.sleep(200);
-        } catch (Exception e) {
-
-        }
+        try { Thread.sleep(4000); } catch (Exception e) {}
 
         StringBuilder sb = new StringBuilder();
         // Three numbers
